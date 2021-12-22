@@ -15,14 +15,13 @@ __copyright__ = "Copyright 2021, Matt Switanek"
 ################################################################################
 
 import os
-import gzip
 import json
 import time
 import datetime 
 import numpy as np
 
 ################################################################################
-##### Load in data from gzipped json files
+##### Load in data from json files
 ################################################################################
 
 ### The names of the catchments used in our example study
@@ -32,7 +31,7 @@ catchmentNames = ["ObereMur","IllSugadin","Pitztal","ObereIsel"
 months = ["January","February","March","April","May","June","July"
     ,"August","September","October","November","December"]
 
-f1=gzip.open("precipDataOBS.json.gz",'r')
+f1=open("precipDataOBS.json",'r')
 dataObs = json.load(f1)
 f1.close()
 
@@ -46,7 +45,7 @@ for catchment in catchmentNames:
         dataObs[catchment][month]['precipitation']\
             = np.array(dataObs[catchment][month]['precipitation'])/100.
 
-f2=gzip.open("precipDataRCM.json.gz",'r')
+f2=open("precipDataRCM.json",'r')
 dataMod = json.load(f2)
 f2.close()
 
@@ -241,7 +240,8 @@ for catchment in catchmentNames[0:8]:
                 np.savez("simulations/conditionalRCM"+modSimNumber+"/"+catchment\
                     +"/"+catchment+"_"+month+"_Sim"+str(simnum+1)\
                     ,simulated_data=np.float32(simulated_vals))
-
+            
+            
         print(catchment,month)
             
 
